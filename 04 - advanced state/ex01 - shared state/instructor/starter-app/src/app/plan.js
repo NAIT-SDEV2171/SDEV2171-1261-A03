@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function PlanScreen() {
   const router = useRouter();
-  useEffect(() => {
-    console.log('Plan mounted');
-    return () => console.log('Plan unmounted');
-  }, []);
-
-  const { steps } = useLocalSearchParams(); // this hook lets me destructure from URLparams into JS objects e.g. "?steps=[1,2,3] -> [1, 2, 3]
+  const { steps } = useLocalSearchParams();
 
   // The useState initializer runs once, when this screen mounts.
   const [planSteps, setPlanSteps] = useState(() => JSON.parse(steps ?? '[]'));
