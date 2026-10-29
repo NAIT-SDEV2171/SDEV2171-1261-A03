@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+
 import { API_BASE_URL } from '../lib/apiBaseUrl';
 import { useFetch } from '../hooks/useFetch';
 
 export default function DetailsScreen() {
   const router = useRouter();
+  useEffect(() => {
+    console.log('Details mounted');
+    return () => console.log('Details unmounted');
+  }, []);
+  // adding these as observability to both Plan & Details;
+  // notice how details doesn't unmount when going to plan,
+  // meaning its useState held its own list persistently the entire time
+
   const { status, data, errorMessage, retry } = useFetch(`${API_BASE_URL}/study-steps?delay=500`);
   const steps = data ?? [];
   const [selectedSteps, setSelectedSteps] = useState([]);
