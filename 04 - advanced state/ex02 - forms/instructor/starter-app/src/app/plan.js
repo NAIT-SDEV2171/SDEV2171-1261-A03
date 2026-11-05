@@ -21,6 +21,10 @@ export default function PlanScreen() {
         </View>
       ))}
 
+      <Pressable style={styles.button} onPress={() => router.push('/session-form')}>
+        <Text style={styles.uttonLabel}>Save as session</Text>
+      </Pressable>
+
       <Pressable style={styles.secondaryButton} onPress={() => router.back()}>
         <Text style={styles.secondaryButtonLabel}>Go back</Text>
       </Pressable>
