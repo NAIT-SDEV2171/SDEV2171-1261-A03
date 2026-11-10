@@ -25,7 +25,7 @@ function validateSession(title, steps) {
 export default function SessionFormScreen() {
   
   // shared state for study session & its steps
-  const { selectedSteps } = useStudyPlan();
+  const { selectedSteps, saveSession } = useStudyPlan();
 
   // local state for form fields data; feel free to use an object with properties for each field instead
   // -> if you do one piece of state
@@ -50,7 +50,10 @@ export default function SessionFormScreen() {
     setHasTriedSaving(true);
     if (!isValid) return;
 
-    console.log('session-form : handleSave -> draft:', {title, goal})
+    // console.log('session-form : handleSave -> draft:', {title, goal})
+    // if I had many many values, I could also just .map() x => x.trim() and get a new object
+    saveSession({ title: title.trim(), goal: goal.trim() })
+    router.back(); // I want to go back (and pop this screen off the route stack) rather than push (which would break saving)
   }
 
   // keyboardShouldPersistTaps will pass on any taps to the UI if made outside the kb while kb is open.
