@@ -35,11 +35,19 @@ export default function SessionFormScreen() {
   const [goal, setGoal] = useState('');
 
   // error handling
+  const [hasTriedSaving, setHasTriedSaving] = useState(false);
   const errors  = validateSession(title, selectedSteps);
   const isValid = errors.length === 0;
 
+  const titleError = hasTriedSaving ? errors.title : undefined;
+  const stepsError = hasTriedSaving ? errors.steps : undefined;
+
   function handleSave() {
     // validate data, *then* write valid data to context
+    // we could have also just built our error handling in this save method
+    setHasTriedSaving(true);
+    if (!isValid) return;
+    
     console.log('session-form : handleSave -> draft:', {title, goal})
   }
 
@@ -56,9 +64,9 @@ export default function SessionFormScreen() {
           onChangeText={setTitle}
           placeholder="Week 3 lab prep"
           maxLength={40}
-          style={[styles.input, errors.title && styles.inputError]}
+          style={[styles.input, titleError && styles.inputError]}
         />
-        {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
+        {titleError && <Text style={styles.errorText}>{titleError}</Text>}
       </View>
 
       <View style={styles.field}>
@@ -75,7 +83,7 @@ export default function SessionFormScreen() {
       <Pressable style={styles.button} onPress={handleSave}>
         <Text style={styles.buttonLabel}>Save session</Text>
       </Pressable>
-      {errors.steps && <Text style={styles.errorText}>{errors.steps}</Text>}
+      {stepsError && <Text style={styles.errorText}>{stepsError}</Text>}
     </ScrollView>
   );
 }
