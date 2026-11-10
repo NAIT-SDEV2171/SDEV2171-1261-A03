@@ -21,7 +21,8 @@ export default function SessionFormScreen() {
     console.log('session-form : handleSave -> draft:', {title, goal})
   }
 
-
+  // keyboardShouldPersistTaps will pass on any taps to the UI if made outside the kb while kb is open.
+  // normally, one tap outside the kb while it's open would just close it.
   return (
     <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
       <Text style={styles.intro}>Steps in this session: {selectedSteps.length}</Text>

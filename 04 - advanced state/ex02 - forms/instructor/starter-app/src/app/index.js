@@ -16,6 +16,9 @@ export default function HomeScreen() {
       <Pressable style={styles.button} onPress={() => router.push('/details')}>
         <Text style={styles.buttonLabel}>Open study steps</Text>
       </Pressable>
+      <Pressable style={styles.button} onPress={() => router.push('/session-form')}>
+        <Text style={styles.buttonLabel}>FORM</Text>
+      </Pressable>
     </View>
   );
 }
