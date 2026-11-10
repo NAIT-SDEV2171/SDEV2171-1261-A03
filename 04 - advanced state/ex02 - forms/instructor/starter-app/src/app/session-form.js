@@ -4,6 +4,24 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import { useStudyPlan } from '../context/StudyPlanContext';
 
 
+function validateSession(title, steps) {
+  // simple function: take inputs, compose error messages based on inputs
+
+  const errors = {};
+
+  if (title.trim() === '') {
+    errors.title = 'Please provide a title for the session';
+  }
+
+  if (steps.length === 0) {
+    errors.steps = 'Your plan must contain at least one step before saving'
+  }
+
+  return errors;
+
+}
+
+
 export default function SessionFormScreen() {
   
   // shared state for study session & its steps
@@ -15,6 +33,10 @@ export default function SessionFormScreen() {
   //    this can be more efficient in terms of code implementation, but understand that changing one field re-renders all fields
   const [title, setTitle] = useState('');
   const [goal, setGoal] = useState('');
+
+  // error handling
+  const errors  = validateSession(title, selectedSteps);
+  const isValid = errors.length === 0;
 
   function handleSave() {
     // validate data, *then* write valid data to context
@@ -34,8 +56,9 @@ export default function SessionFormScreen() {
           onChangeText={setTitle}
           placeholder="Week 3 lab prep"
           maxLength={40}
-          style={styles.input}
+          style={[styles.input, errors.title && styles.inputError]}
         />
+        {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
       </View>
 
       <View style={styles.field}>
@@ -52,6 +75,7 @@ export default function SessionFormScreen() {
       <Pressable style={styles.button} onPress={handleSave}>
         <Text style={styles.buttonLabel}>Save session</Text>
       </Pressable>
+      {errors.steps && <Text style={styles.errorText}>{errors.steps}</Text>}
     </ScrollView>
   );
 }
