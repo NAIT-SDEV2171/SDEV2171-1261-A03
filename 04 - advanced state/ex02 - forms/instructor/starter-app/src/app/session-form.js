@@ -34,7 +34,9 @@ export default function SessionFormScreen() {
   const [title, setTitle] = useState('');
   const [goal, setGoal] = useState('');
 
-  // error handling
+  // error handling - notice how we're not tying error messages to state!
+  // every time we type something new in a (stateful) field, the component re-renders anyway.
+  // -> if I make the error messages themselves stateless, I don't have to wait for the save button to be hit again before clearing them
   const [hasTriedSaving, setHasTriedSaving] = useState(false);
   const errors  = validateSession(title, selectedSteps);
   const isValid = errors.length === 0;
@@ -47,7 +49,7 @@ export default function SessionFormScreen() {
     // we could have also just built our error handling in this save method
     setHasTriedSaving(true);
     if (!isValid) return;
-    
+
     console.log('session-form : handleSave -> draft:', {title, goal})
   }
 

@@ -5,7 +5,7 @@ import { useStudyPlan } from '../context/StudyPlanContext';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { selectedSteps } = useStudyPlan();
+  const { selectedSteps, savedSession } = useStudyPlan();
 
   return (
     <View style={styles.screen}>
@@ -13,6 +13,7 @@ export default function HomeScreen() {
       <Text style={styles.eyebrow}>SDEV2171 lesson 16</Text>
       <Text style={styles.title}>Home</Text>
       <Text style={styles.body}>{selectedSteps.length} in your plan</Text>
+      {savedSession && <Text style={styles.body}>Saved session: {savedSession.title}</Text>}
       <Pressable style={styles.button} onPress={() => router.push('/details')}>
         <Text style={styles.buttonLabel}>Open study steps</Text>
       </Pressable>

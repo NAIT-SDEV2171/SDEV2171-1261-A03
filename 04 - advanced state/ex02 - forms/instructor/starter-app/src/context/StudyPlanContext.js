@@ -4,6 +4,9 @@ const StudyPlanContext = createContext(null);
 
 export function StudyPlanProvider({ children }) {
   const [selectedSteps, setSelectedSteps] = useState([]);
+  const savedSession = {title: "test session", goal: "", steps: selectedSteps}; // TODO: replace with actual state
+
+  function saveSession() {} 
 
   function toggleStep(step) {
     setSelectedSteps((currentSteps) => {
@@ -21,7 +24,7 @@ export function StudyPlanProvider({ children }) {
     setSelectedSteps((currentSteps) => currentSteps.filter((step) => step.id !== id));
   }
 
-  const value = { selectedSteps, toggleStep, removeStep };
+  const value = { selectedSteps, savedSession, toggleStep, removeStep, saveSession };
 
   return <StudyPlanContext value={value}>{children}</StudyPlanContext>;
 }

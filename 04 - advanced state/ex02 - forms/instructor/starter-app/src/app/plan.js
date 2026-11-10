@@ -4,10 +4,20 @@ import { useStudyPlan } from '../context/StudyPlanContext';
 
 export default function PlanScreen() {
   const router = useRouter();
-  const { selectedSteps: planSteps, removeStep } = useStudyPlan();
-
+  const { selectedSteps: planSteps, removeStep, savedSession } = useStudyPlan();
+  console.log(savedSession)
   return (
     <ScrollView contentContainerStyle={styles.screen}>
+      {savedSession ? (
+        <View style={styles.card}>
+          <Text style={styles.cardLabel}>Saved session</Text>
+          <Text style={styles.cardTitle}>{savedSession.title}</Text>
+          {savedSession.goal !== '' && <Text style={styles.cardBody}>{savedSession.goal}</Text>}
+          <Text style={styles.cardBody}>Steps saved: {savedSession.steps.length}</Text>
+        </View>
+      ) : (
+        <Text style={styles.empty}>No saved session yet.</Text>
+      )}
       <Text style={styles.count}>{planSteps.length} in your plan</Text>
 
       {planSteps.length === 0 && <Text style={styles.empty}>Your plan is empty. Add steps on the Study Steps screen.</Text>}
