@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { useStudyPlan } from '../context/StudyPlanContext';
@@ -23,6 +24,8 @@ function validateSession(title, steps) {
 
 
 export default function SessionFormScreen() {
+
+  const router = useRouter();
   
   // shared state for study session & its steps
   const { selectedSteps, saveSession } = useStudyPlan();
@@ -39,7 +42,9 @@ export default function SessionFormScreen() {
   // -> if I make the error messages themselves stateless, I don't have to wait for the save button to be hit again before clearing them
   const [hasTriedSaving, setHasTriedSaving] = useState(false);
   const errors  = validateSession(title, selectedSteps);
-  const isValid = errors.length === 0;
+  const isValid = Object.keys(errors).length === 0;
+  // ^ fix: originally was errors.length === 0, which is always false.
+  //        validateSession returns an object {} with a key:value for each error, so just check if there are keys present in it.
 
   const titleError = hasTriedSaving ? errors.title : undefined;
   const stepsError = hasTriedSaving ? errors.steps : undefined;
