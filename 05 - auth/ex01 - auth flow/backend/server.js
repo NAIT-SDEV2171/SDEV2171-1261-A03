@@ -204,6 +204,6 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Study steps API on http://localhost:${PORT}/api`);
-  console.log(`Sign in as student1@example.com or student2@example.com, password Password123!`);
+  console.log(`Sign in as AzureDiamond@internet.com (pw: hunter2) or student2@example.com, (pw: Password123!)`);
   console.log(`Tokens last ${TOKEN_SECONDS} seconds.`);
 });
