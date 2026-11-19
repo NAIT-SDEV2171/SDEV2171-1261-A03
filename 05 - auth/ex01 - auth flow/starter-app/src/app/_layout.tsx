@@ -4,6 +4,7 @@ import { StudyPlanProvider } from '../context/StudyPlanContext';
 
 
 export default function Layout() {
+
   return (
     <AuthProvider>
       <StudyPlanProvider>
