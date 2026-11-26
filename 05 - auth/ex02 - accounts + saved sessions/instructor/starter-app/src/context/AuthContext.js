@@ -19,6 +19,14 @@ export function AuthProvider({ children }) {
     setSession(null);
   }
 
+  async function register({ name, email, password }) {
+    const { token, user } = await apiRequest('/auth/register', {
+      method: 'POST',
+      body: { name, email, password },
+    });
+    setSession({ token, user });
+  }
+
   const value = {
     token: session?.token ?? null,
     user: session?.user ?? null,
