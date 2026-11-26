@@ -23,7 +23,7 @@ export default function LoginScreen() {
         label="Email"
         value={email}
         onChangeText={setEmail}
-        placeholder="AzureDiamond@internet.com"
+        placeholder="student2@example.com"
         autoCapitalize="none"
         autoComplete="email"
         keyboardType="email-address"
