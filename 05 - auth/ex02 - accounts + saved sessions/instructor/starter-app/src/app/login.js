@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { useRouter } from 'expo-router';
+
 import { useAuth } from '../context/AuthContext';
 import { FormField } from '../components/FormField';
 
+
 export default function LoginScreen() {
+  const router = useRouter();
+
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,6 +63,11 @@ export default function LoginScreen() {
       >
         <Text style={styles.buttonLabel}>{isSubmitting ? 'Signing in...' : 'Sign in'}</Text>
       </Pressable>
+
+      <Pressable style={styles.secondaryButton} onPress={() => router.push('/register')}>
+        <Text style={styles.secondaryButtonLabel}>Create an account</Text>
+      </Pressable>
+
     </ScrollView>
   );
 }

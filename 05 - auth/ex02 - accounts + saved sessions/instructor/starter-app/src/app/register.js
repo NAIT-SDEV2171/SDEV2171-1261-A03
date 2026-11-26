@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { FormField } from '../components/FormField';
 
 export default function RegisterScreen() {
-  const { register } = useAuth();
+  const { register } = useAuth();  // pulling just the register function out of context (instead of login)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
